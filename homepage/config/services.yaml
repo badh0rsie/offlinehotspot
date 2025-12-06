@@ -1,0 +1,53 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/---
+- Offline Hotspot:
+    - AudioBookShelf:
+        href: http://10.0.0.1:13378/
+        description: Audiobooks and podcasts
+        icon: audiobookshelf
+        target: _self
+        siteMonitor: http://10.0.0.1:13378/
+
+    - Emby:
+        href: http://10.0.0.1:8096/
+        description: Movies and TV Shows
+        icon: emby
+        target: _self
+        siteMonitor: http://10.0.0.1:8096/
+
+    - Kiwix:
+        href: http://10.0.0.1:8123/
+        description: Offline Websites and Books
+        icon: kiwix-light
+        target: _self
+        siteMonitor: http://10.0.0.1:8123/
+
+    - Open Street Maps:
+        href: http://10.0.0.1:8000/styles/maptiler-3d-gl-lan/#14.21/47.60577/-122.33584
+        description: Maps of the full planet
+        icon: apple-maps
+        target: _self
+        siteMonitor: http://10.0.0.1:8000/
+
+    - Wikipedia:
+        # href: http://10.0.0.1:8123/viewer#wikipedia_en_all_maxi_2025-08/User%3AThe_other_Kiwix_guy/Landing
+        href: http://10.0.0.1:8123/viewer#wikipedia_en_all_maxi_2025-08/Main_Page
+        description: An offline snapshot of Wikipedia, as of August 2025
+        icon: wikipedia
+        target: _self
+        siteMonitor: http://10.0.0.1:8123/
+
+    - Project Gutenberg:
+        href: http://10.0.0.1:8123/viewer#gutenberg_en_all_2023-08
+        description: Library of 60,000 ebooks
+        icon: bookstack
+        target: _self
+        siteMonitor: http://10.0.0.1:8123/
+
+    - Stash:
+        href: http://10.0.0.1:6969/
+        description: Video collection
+        icon: mdi-movie-open-star-outline
+        target: _self
+        siteMonitor: http://10.0.0.1:6969/

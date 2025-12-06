@@ -1,0 +1,26 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings/
+
+title: Offline Hotspot
+theme: dark
+color: slate
+# fullWidth: true
+useEqualHeights: true
+language: en
+
+disableUpdateCheck: true
+showStats: true
+
+layout:
+  Offline Hotspot:
+    style: row
+    columns: 3
+
+#  Setup:
+#    style: row
+#    columns: 3
+#    expandWidgets: false
+
+
+
