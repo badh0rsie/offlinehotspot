@@ -85,14 +85,3 @@ elif [[ "$unamestr" == 'FreeBSD' ]]; then
     pkg install nano
 
 fi
-
-#
-# Common
-# 
-npm install npm@latest -g
-npm update -g
-npx npm-check --global --update-all
-
-# Update all Python / PIP packages
-pip freeze --local | cut -d = -f 1 | xargs -n1 pip install --upgrade
-
