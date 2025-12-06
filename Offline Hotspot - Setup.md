@@ -203,9 +203,10 @@ mkdir /media/audiobooks
 
 # Mount the NAS
 mkdir /mnt/vault
+mount -t cifs //vault/flats /mnt/vault -o username=andy
 
 # Copy content from the NAS
-# rsync
+rsync -av --progress /mnt/vault/offline/media/ /media/
 
 # Run Docker Compose
 apt install docker-compose docker.io -y
