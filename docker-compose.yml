@@ -1,0 +1,101 @@
+version: "3.9"
+
+services:
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: gethomepage
+    restart: unless-stopped
+    volumes:
+      - ./homepage/config:/app/config
+      - ./homepage/images:/app/public/images
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "80:3000"
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: 192.168.1.235, 10.0.0.1
+    labels: []
+    networks:
+      - proxy
+
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    ports:
+      - "13378:80" # access via http://<pi-ip>:13378
+    volumes:
+      - /media/audiobooks/library:/audiobooks
+      - /media/audiobooks/podcasts:/podcasts
+      - /media/audiobooks/config:/config
+      - /media/audiobooks/metadata:/metadata
+    environment:
+      - TZ=America/Los_Angeles
+    user: "1000:1000" # run as your user to avoid permission issues
+    restart: unless-stopped
+    labels:
+      - homepage.group=Offline Hotspot
+      - homepage.name=AudioBookshelf
+      - homepage.icon=audiobookshelf.png
+      - homepage.href=http://10.0.0.1:13378
+      - homepage.description=Audiobooks and podcasts
+
+  tileserver:
+    image: maptiler/tileserver-gl:v5.3.1
+    container_name: tileserver
+    restart: unless-stopped
+    #    command: tileserver-gl --public_url http://192.168.1.234/tileserver
+    command: --verbose
+    ports:
+      - "8000:8080"
+    volumes:
+      - /media/maps:/data
+    labels:
+      - homepage.group=Offline Hotspot
+      - homepage.name=Open Street Maps
+      - homepage.icon=apple-maps.png
+      - homepage.href=http://10.0.0.1:8000/styles/maptiler-3d-gl/?vector#14.23/47.60318/-122.32891
+      - homepage.description=Offline maps
+    networks:
+      - proxy
+
+  emby:
+    image: lscr.io/linuxserver/emby:latest
+    container_name: emby
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    volumes:
+      - /media/movies/config:/config
+      - /media/movies/cache:/cache
+      - /media/movies:/media
+    labels:
+      - homepage.group=Offline Hotspot
+      - homepage.name=Emby
+      - homepage.icon=emby.png
+      - homepage.href=http://10.0.0.1:8096
+      - homepage.description=Movies and TV Shows
+    networks:
+      - proxy
+
+  kiwix:
+    image: ghcr.io/kiwix/kiwix-serve:latest
+    container_name: kiwix
+    restart: unless-stopped
+    volumes:
+      - /media/zim:/data # put your .zim files here
+    # command: ["--urlRootLocation=/kiwix/", "*.zim"]
+    command: [ "*.zim" ]
+    ports:
+      - 8123:8080
+    labels:
+      - homepage.group=Offline Hotspot
+      - homepage.name=Kiwix
+      - homepage.icon=kiwix-light.png
+      - homepage.href=http://10.0.0.1:8123/
+      - homepage.description=Offline Websites and Books
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    driver: bridge
