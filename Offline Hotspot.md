@@ -3,7 +3,7 @@
 
 Offline Hotspot is a portable, low power personal server designed for offline and emergency scenarios. It consists of a Raspberry Pi 5, 1TB SD card, and a custom 3D printed enclosure.It's entirely self-contained and needs no Internet access.
 
-![[OfflineHotspot.png]]
+![Homepage Screenshot](OfflineHotspot.png)
 
 It runs its own wifi access point and exposes the following applications through your browser:
 
